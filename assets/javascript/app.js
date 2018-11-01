@@ -3,30 +3,42 @@ $(document).ready(function(){
     console.log("Hello, Newman");
 
     // default array of characters
-    var springfielders = ["Homer Simpson", "Marge Simpson", "Otto Man", "Clancy Wiggum", "Mr. Largo", "Waylon Smithers", "Monty Burns", "Edna Krabappel", "Lunchlady Doris"];
+    var springfielders = ["Homer Simpson", "Marge Simpson", "Otto Man", "Clancy Wiggum", "Edna Krabappel", "Mr. Largo", "Waylon Smithers", "Monty Burns", "Lunchlady Doris", "Krusty The Clown"];
 
     // function for generating new character buttons
     function renderButtons() {
 
         // empties the div to prevent accumulating repeated buttons each run
-        $("#buttons").empty();
+        $("#simps-buttons").empty();
 
-        // loop through the array of springfielders
+        // loop through the 'springfielders' array
         for (var i = 0; i < springfielders.length; i++) {
 
           var simp = $("<button>");  // generate a button for each character in the array
           
-          simp.addClass("btn-simp");
-          
-          simp.attr("data-character", springfielders[i]);
-          
-          simp.text(springfielders[i]);
+          simp.addClass("btn-simp"); // add attributes 
+          simp.attr("data-character", springfielders[i]); // ''
+          simp.text(springfielders[i]); // ''
 
-          $("#simps-buttons").append(simp); // add to the HTML once given all the above-attributes
+          $("#simps-buttons").append(simp); // add to the buttons div once given all the above attributes
         }
     }
 
     renderButtons(); // call on doc ready to display initial buttons
+
+    // This function handles events where one button is clicked
+    $("#add-springfielder").on("click", function(event) {
+      event.preventDefault();
+
+      // This line grabs the input from the textbox
+      var springfielder = $("#simps-input").val().trim();
+
+      // The movie from the textbox is then added to our array
+      springfielders.push(springfielder);
+
+      // Calling renderButtons which handles the processing of our movie array
+      renderButtons();
+    });
     
 
     // function for getting and posting gifs on button-click
