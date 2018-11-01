@@ -3,7 +3,7 @@ $(document).ready(function(){
     console.log("Hello, Newman");
 
     // default array of characters
-    var springfielders = ["Homer Simpson", "Marge Simpson", "Bart Simpson", "Lisa Simpson", "Maggie Simpson", "Grampa Simpson", "Otto Man", "Clancy Wiggum", "Mr. Largo", "Waylon Smithers", "Monty Burns", "Edna Krabappel", "Lunchlady Doris"];
+    var springfielders = ["Homer Simpson", "Marge Simpson", "Otto Man", "Clancy Wiggum", "Mr. Largo", "Waylon Smithers", "Monty Burns", "Edna Krabappel", "Lunchlady Doris"];
 
     // function for generating new character buttons
     function renderButtons() {
@@ -16,7 +16,7 @@ $(document).ready(function(){
 
           var simp = $("<button>");  // generate a button for each character in the array
           
-          simp.addClass("simpson");
+          simp.addClass("btn-simp");
           
           simp.attr("data-character", springfielders[i]);
           
@@ -26,7 +26,7 @@ $(document).ready(function(){
         }
     }
 
-    renderButtons();
+    renderButtons(); // call on doc ready to display initial buttons
     
 
     // function for getting and posting gifs on button-click
@@ -41,17 +41,17 @@ $(document).ready(function(){
         })
         .then(function(response) {
 
-            var returns = response.data; //array of gifs returned by the call 
+            var gifsArray = response.data; //array of gifs returned by the call 
   
-            for (var g = 0; g < returns.length; g++) {
+            for (var g = 0; g < gifsArray.length; g++) {
               var gifDiv = $("#gif-viewer");
   
-              var rating = returns[g].rating;
+              var rating = gifsArray[g].rating;
   
               var p = $("<p>").text("Rating: " + rating);
   
               var personImage = $("<img>");
-              personImage.attr("src", returns[g].images.fixed_height.url);
+              personImage.attr("src", gifsArray[g].images.fixed_height.url);
   
               gifDiv.prepend(p);
               gifDiv.prepend(personImage);
