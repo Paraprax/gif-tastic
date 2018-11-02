@@ -33,7 +33,8 @@ $(document).ready(function(){
       $("button").on("click", function() {
         var character = $(this).attr("data-character");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-          character + "&api_key=dc6zaTOxFJmzC&limit=10&tag=red"; // "limit = 10" so only the first ten gifs are returned
+          character + "&api_key=dc6zaTOxFJmzC&limit=10&tag=red"; // "limit = 10" so only the first ten gifs are returned; 
+                                                                  //unfortunately giphy API doesn't allow for tag filters in this context, ie. to only return gifs tagged "simpsons"
   
       $.ajax({ // AJAX call to Giphy to get gif data
         url: queryURL,
