@@ -1,8 +1,17 @@
 .btn-simp {
     margin: 2px;
+    background-color: gold;
 }
 
+#add-springfielder {
+    background-color: purple;
+    color: lime;
+}
 
 #simps-buttons {
     margin-top: 12px;
+}
+
+.row {
+    margin-top: 5px;
 }
