@@ -51,13 +51,18 @@ $(document).ready(function(){
               var p = $("<p>").text("Rating: " + rating); //includes the MPAA rating included in the JSON response
 
               var simpsImage = $("<img>");
-              simpsImage.attr("src", gifsArray[g].images.fixed_height.url); //formats the gif from the array
-
+              simpsImage.attr("src", gifsArray[g].images.fixed_height.url); //formats the gif from the array (still-image by default)
+             
             
               gifDiv.prepend(p); //adds each rating to the beginning of the div (prepend)
               gifDiv.prepend(simpsImage); //ditto each gif
              
+              //failed attempt to get click-swapping of pause/play to work:
 
+              //$(".simpsGif").on("click", function(){
+              //  console.log("click!");
+              //  simpsImage.attr("src", gifsArray[g].images.fixed_height_still.url); ---> //gifsArray[g] is undefined here for reasons I can't crack :(
+              // });
             }
         }); // end of "then"-function
 
@@ -88,11 +93,6 @@ $(document).ready(function(){
       renderButtons();
 
     }); //* * * * * * * * * * * * * *
-
-    //function for starting and pausing gifs when clicking them : : : : : : : : : : :
-
-    
-    // : : : : : : : : : : : : : : 
    
 
 }); // end of docready function
