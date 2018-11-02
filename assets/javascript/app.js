@@ -1,12 +1,15 @@
 $(document).ready(function(){
 
+    // VARIABLES ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
     // default array of characters
     var springfielders = ["Homer Simpson", "Marge Simpson", "Otto Man", "Clancy Wiggum", "Edna Krabappel", "Mr. Largo", "Waylon Smithers", "Monty Burns", "Lunchlady Doris", "Krusty The Clown"];
-    var springfielder = ""; //placeholder var to be defined with input inside the on-click
+    //placeholder var to be defined with input inside the on-click
+    var springfielder = ""; 
+    // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ 
 
     renderButtons(); // call on doc ready to display initial buttons
 
-    // function for generating new character buttons
+    // BIG FUNCTION for generating buttons and adding the gif functionality via AJAX = = = = = = = = = = = = =
     function renderButtons() {
 
       console.log("♫ The Simpsons ♫"); //make sure renderButtons ran on pageload
@@ -26,7 +29,7 @@ $(document).ready(function(){
         $("#simps-buttons").append(simp); // add to the buttons div once given all the above attributes
       }
       
-      //function for submitting a new character button
+      //event function for clicking any character button - - - - - - - - - - - - -
       $("button").on("click", function() {
         var character = $(this).attr("data-character");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
@@ -36,29 +39,32 @@ $(document).ready(function(){
         url: queryURL,
         method: "GET"
       })
-      .then(function(response) {
+        .then(function(response) {
 
-          var gifsArray = response.data; //array of gifs returned by the call 
+            var gifsArray = response.data; //array of gifs returned by the call 
 
-          for (var g = 0; g < 10; g++) { //loop to return only 10 gifs
-            var gifDiv = $("#gif-viewer");
+            for (var g = 0; g < 10; g++) { //loop to return only 10 gifs
+              var gifDiv = $("#gif-viewer");
 
-            var rating = gifsArray[g].rating;
+              var rating = gifsArray[g].rating;
 
-            var p = $("<p>").text("Rating: " + rating); //includes the MPAA rating included in the JSON response
+              var p = $("<p>").text("Rating: " + rating); //includes the MPAA rating included in the JSON response
 
-            var simpsImage = $("<img>");
-            simpsImage.attr("src", gifsArray[g].images.fixed_height.url); //formats the gif from the array
+              var simpsImage = $("<img>");
+              simpsImage.attr("src", gifsArray[g].images.fixed_height.url); //formats the gif from the array
 
-            gifDiv.prepend(p); //adds each rating to the beginning of the div (prepend)
-            gifDiv.prepend(simpsImage); //ditto each gif
-          }
-      });
+              gifDiv.prepend(p); //adds each rating to the beginning of the div (prepend)
+              gifDiv.prepend(simpsImage); //ditto each gif
+            }
+        }); // end of "then"-function
 
-    });
-    }
+      }); // end of on-click event function - - - - - - - - - - - - - - - 
 
-    // function for turning user input into a new button    
+    } // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =  
+
+
+    // function for turning user input into a new button by adding submission 
+    // to the array of characters which buttons are rendered from. * * * * * * * * * * * * 
     $("#add-springfielder").on("click", function(event) { 
 
       console.log("smarch"); //check if function is happening onclick
@@ -69,17 +75,20 @@ $(document).ready(function(){
         alert("Please enter a Simpsons character!");
         return;
       } 
-      // okay on to the actual purpose of this function....
+      // okay, onwards to the actual purpose of this function....
 
-      //**** (use 'this'?)
-      springfielder = $("#simps-input").val().trim(); // trim the text input and turn it into a new variable
+      springfielder = $("#simps-input").val().trim(); // trim the user's text input and turn it into a new variable
 
       springfielders.push(springfielder); // push the new var object to the springfielders array
 
-       // call renderButtons to update the array of buttons with the new one and post them to the page
-       renderButtons();
+      // finally, call renderButtons to update the array of buttons with the new one and post them to the page
+      renderButtons();
 
-    });
+    }); //* * * * * * * * * * * * * *
+
+    //function for starting and pausing gifs when clicking them : : : : : : : : : : :
+    
+    // : : : : : : : : : : : : : : 
    
 
 }); // end of docready function
